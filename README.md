@@ -1,2 +1,2 @@
 # yii-lte
-Admin LTE Yii Extension
+Admin LTE Yii2 Extension
