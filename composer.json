@@ -1,0 +1,16 @@
+{
+    "name": "suhanda/yii-lte",
+    "description": "Admin LTE Yii2 Extension",
+    "type": "library",
+    "require": {
+        "yiisoft/yii2": "2.0.9"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dedi Suhanda",
+            "email": "dedi.suhanda@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
