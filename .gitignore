@@ -40,3 +40,7 @@ jspm_packages
 # composer
 vendor
 composer.lock
+
+
+# IDEA
+.idea

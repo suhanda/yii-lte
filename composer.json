@@ -15,7 +15,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "yii\\suhanda\\lte\\": "lib/"
+      "yii\\lte\\": ""
     }
   },
   "minimum-stability": "dev"
