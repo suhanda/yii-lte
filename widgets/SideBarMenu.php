@@ -34,7 +34,7 @@ use yii\widgets\Menu;
  *         "Product"
  *         // 'Products' menu item will be selected as long as the route is 'product/index'
  *         ['label' => 'Products', 'url' => ['product/index'], 'items' => [
- *             ['label' => 'New Arrivals', 'url' => ['product/index', 'tag' => 'new']],
+ *             ['label' => 'New Arrivals', 'icon'=>'user', 'url' => ['product/index', 'tag' => 'new']],
  *             ['label' => 'Most Popular', 'url' => ['product/index', 'tag' => 'popular']],
  *         ]],
  *         ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
@@ -97,7 +97,7 @@ class SideBarMenu extends Menu
         foreach ($items as $i => $item) {
             $tag = ArrayHelper::remove($options, 'tag', 'li');
             if ($item['isHeader']) {
-                Html::addCssClass($options,'header');
+                Html::addCssClass($options, 'header');
                 $lines[] = Html::tag($tag, $this->renderItem($item), $options);
                 continue;
             }
@@ -177,12 +177,16 @@ class SideBarMenu extends Menu
             ]);
         }
 
-        $arrow = $hasChild ? $this->hasChildTemplate : "";
+        if (isset($item['badges'])) {
+            $side = $this->renderBadges($item);
+        } else {
+            $side = $hasChild ? $this->hasChildTemplate : "";
+        }
 
         $label = strtr($labelTemplate, [
             '{icon}'     => $icon,
             '{label}'    => $item['label'],
-            '{hasChild}' => $arrow
+            '{hasChild}' => $side
         ]);
 
         return $label;
@@ -239,5 +243,38 @@ class SideBarMenu extends Menu
         }
 
         return array_values($items);
+    }
+
+
+    /**
+     * @param $item
+     *
+     * @return string
+     */
+    protected function renderBadges($item)
+    {
+        $template = '<span class="pull-right-container">{items}</span>';
+
+        $colors   = [];
+        $contents = [];
+        foreach ($item['badges'] as $badge) {
+            $explode    = explode('#', $badge);
+            $contents[] = $explode[0];
+            $colors[]   = isset($explode[1]) ? $explode[1] : 'blue';
+        }
+
+        $items = array_map(function ($color, $content) {
+            $tpl = '<small class="label pull-right bg-{color}">{content}</small>';
+
+            return strtr($tpl, [
+                '{color}'   => $color,
+                '{content}' => $content
+            ]);
+        }, $colors, $contents);
+
+        return strtr($template, [
+            '{items}' => implode("\n", $items)
+        ]);
+
     }
 }
