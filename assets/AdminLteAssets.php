@@ -1,6 +1,9 @@
 <?php
 namespace yii\lte\assets;
 
+use yii\bootstrap\BootstrapAsset;
+use yii\web\YiiAsset;
+
 /**
  * Class AdminLteAssets
  *
@@ -9,21 +12,17 @@ namespace yii\lte\assets;
  */
 class AdminLteAssets extends AssetBundle
 {
-    public $depends = [
-        'yii\web\YiiAsset'
-    ];
-
     public function init()
     {
-        $this->setSourcePath('@vendor/almasaeed2010/dist');
-
+        $this->setSourcePath('@vendor/almasaeed2010/adminlte/dist');
         $this->setupAssets('css', [
-            "css/AdminLTE.css"
+            "css/AdminLTE",
+            "css/skins/_all-skins"
         ]);
-
         $this->setupAssets('js', [
             'js/app'
         ]);
+        $this->addDependency(YiiAsset::class);
 
         parent::init();
     }
