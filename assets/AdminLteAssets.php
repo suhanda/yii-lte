@@ -2,6 +2,7 @@
 namespace yii\lte\assets;
 
 use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\YiiAsset;
 
 /**
@@ -23,6 +24,8 @@ class AdminLteAssets extends AssetBundle
             'js/app'
         ]);
         $this->addDependency(YiiAsset::class);
+        $this->addDependency(BootstrapAsset::class);
+        $this->addDependency(BootstrapPluginAsset::class);
 
         parent::init();
     }

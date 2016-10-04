@@ -14,7 +14,7 @@ class FontAwesomeAssets extends AssetBundle
 {
     public function init()
     {
-        $this->setSourcePath('@vendor/fontawesome/font-awesome');
+        $this->setSourcePath('@vendor/fortawesome/font-awesome');
         $this->setupAssets('css', [
             "css/font-awesome",
         ]);
