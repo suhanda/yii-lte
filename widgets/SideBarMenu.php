@@ -47,16 +47,20 @@ use yii\widgets\Menu;
  */
 class SideBarMenu extends Menu
 {
-    public $linkTemplate = '<a href="{link}">{label}</a>{hasChild}';
 
     public $hasChildTemplate = '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>';
 
     public $submenuTemplate = "\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n";
 
+    public $linkTemplate = '<a href="{url}">{label}</a>';
+
     public $encodeLabels = false;
 
     public $activateParents = true;
 
+    public $labelTemplate = '{icon}<span>{label}</span>{hasChild}';
+
+    public $iconTemplate = '<i class="fa fa-{icon}"></i>';
 
     /**
      * Renders the menu.
@@ -91,9 +95,15 @@ class SideBarMenu extends Menu
         $n     = count($items);
         $lines = [];
         foreach ($items as $i => $item) {
+            $tag = ArrayHelper::remove($options, 'tag', 'li');
+            if ($item['isHeader']) {
+                Html::addCssClass($options,'header');
+                $lines[] = Html::tag($tag, $this->renderItem($item), $options);
+                continue;
+            }
             $options  = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
             $hasChild = !empty($item['items']);
-            $tag   = ArrayHelper::remove($options, 'tag', 'li');
+
             $class = [];
 
             if ($hasChild) {
@@ -115,7 +125,7 @@ class SideBarMenu extends Menu
                     $options['class'] .= ' ' . implode(' ', $class);
                 }
             }
-            $menu = $this->renderItem($item, $hasChild);
+            $menu = $this->renderItem($item);
             if ($hasChild) {
                 $submenuTemplate = ArrayHelper::getValue($item, 'submenuTemplate', $this->submenuTemplate);
                 $menu .= strtr($submenuTemplate, [
@@ -134,27 +144,100 @@ class SideBarMenu extends Menu
      *
      * @param array $item the menu item to be rendered. Please refer to [[items]] to see what data might be in the item.
      *
-     * @param       $hasChild
-     *
      * @return string the rendering result
      */
-    protected function renderItem($item, $hasChild)
+    protected function renderItem($item)
     {
-        if (isset($item['url'])) {
-            $template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
+        if ($item['isHeader']) {
+            return $this->renderLabel($item);
+        }
 
-            return strtr($template, [
-                '{url}'      => Html::encode(Url::to($item['url'])),
-                '{label}'    => $item['label'],
-                '{hasChild}' => $hasChild ? $this->hasChildTemplate : ''
-            ]);
-        } else {
-            $template = ArrayHelper::getValue($item, 'template', $this->labelTemplate);
+        if (!isset($item['url'])) {
+            $item['url'] = "#";
+        }
+        $template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
 
-            return strtr($template, [
-                '{label}'    => $item['label'],
-                '{hasChild}' => $hasChild ? $this->hasChildTemplate : ''
+        return strtr($template, [
+            '{url}'   => Html::encode(Url::to($item['url'])),
+            '{label}' => $this->renderLabel($item),
+        ]);
+
+    }
+
+    public function renderLabel($item)
+    {
+        $hasChild      = !empty($item['items']);
+        $labelTemplate = ArrayHelper::getValue($item, 'labelTemplate', $this->labelTemplate);
+        $iconTemplate  = ArrayHelper::getValue($item, 'iconTemplate', $this->iconTemplate);
+        $icon          = '';
+
+        if (isset($item['icon'])) {
+            $icon = strtr($iconTemplate, [
+                '{icon}' => $item['icon']
             ]);
         }
+
+        $arrow = $hasChild ? $this->hasChildTemplate : "";
+
+        $label = strtr($labelTemplate, [
+            '{icon}'     => $icon,
+            '{label}'    => $item['label'],
+            '{hasChild}' => $arrow
+        ]);
+
+        return $label;
+    }
+
+
+    /**
+     * Normalizes the [[items]] property to remove invisible items and activate certain items.
+     *
+     * @param array   $items  the items to be normalized.
+     * @param boolean $active whether there is an active child menu item.
+     *
+     * @return array the normalized menu items
+     */
+    protected function normalizeItems($items, &$active)
+    {
+        foreach ($items as $i => $item) {
+            if (is_string($item)) {
+                $items[$i] = ['label' => $item, 'isHeader' => true];
+                continue;
+            } else {
+                $items[$i]['isHeader'] = false;
+            }
+
+            if (isset($item['visible']) && !$item['visible']) {
+                unset($items[$i]);
+                continue;
+            }
+            if (!isset($item['label'])) {
+                $item['label'] = '';
+            }
+            $encodeLabel        = isset($item['encode']) ? $item['encode'] : $this->encodeLabels;
+            $items[$i]['label'] = $encodeLabel ? Html::encode($item['label']) : $item['label'];
+            $hasActiveChild     = false;
+            if (isset($item['items'])) {
+                $items[$i]['items'] = $this->normalizeItems($item['items'], $hasActiveChild);
+                if (empty($items[$i]['items']) && $this->hideEmptyItems) {
+                    unset($items[$i]['items']);
+                    if (!isset($item['url'])) {
+                        unset($items[$i]);
+                        continue;
+                    }
+                }
+            }
+            if (!isset($item['active'])) {
+                if ($this->activateParents && $hasActiveChild || $this->activateItems && $this->isItemActive($item)) {
+                    $active = $items[$i]['active'] = true;
+                } else {
+                    $items[$i]['active'] = false;
+                }
+            } elseif ($item['active']) {
+                $active = true;
+            }
+        }
+
+        return array_values($items);
     }
 }
