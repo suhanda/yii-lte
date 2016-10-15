@@ -23,7 +23,7 @@ class Theme extends BaseTheme
     ];
 
     /** @var array */
-    public $topMdenuItems = [];
+    public $topMenuItems = [];
 
     /** @var array */
     public $siteMenuItems = [];
@@ -72,6 +72,8 @@ class Theme extends BaseTheme
         if ($this->isFixed) {
             $this->bodyCss[] = 'fixed';
         }
+
+        $this->bodyCss[] = $this->getSkin();
 
         parent::init();
     }
