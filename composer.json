@@ -1,5 +1,5 @@
 {
-  "name": "suhanda/yii-lte",
+  "name": "suhanda/yii2-lte",
   "description": "Admin LTE Yii2 Extension",
   "type": "library",
   "require": {
