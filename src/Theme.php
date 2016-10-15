@@ -1,12 +1,12 @@
 <?php
-namespace yii\lte;
+namespace suhanda\AdminLte;
 
 use yii\base\Theme as BaseTheme;
-use yii\lte\assets\AdminLteAssets;
+use suhanda\AdminLte\assets\AdminLteAssets;
 
 /**
  * Class Theme
- * @package yii\lte\assets
+ * @package suhanda\AdminLte\assets
  */
 class Theme extends BaseTheme
 {
@@ -53,7 +53,7 @@ class Theme extends BaseTheme
                 $this->root . '/views' => [
                     $this->root . '/views',
                     $this->getPath('views')
-                ]
+                ],
             ];
         }
 

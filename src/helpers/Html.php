@@ -1,5 +1,5 @@
 <?php
-namespace yii\lte\helpers;
+namespace suhanda\AdminLte\helpers;
 
 use yii\bootstrap\Html as BootstrapHtml;
 

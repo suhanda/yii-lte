@@ -1,12 +1,12 @@
 <?php
 /* @var $this \yii\web\View */
 
-use yii\lte\helpers\Html;
+use suhanda\AdminLte\helpers\Html;
 use yii\helpers\ArrayHelper;
-use yii\lte\assets\AdminLteAssets;
+use suhanda\AdminLte\assets\AdminLteAssets;
 use yii\widgets\Breadcrumbs;
 
-/* @var $theme \yii\lte\Theme */
+/* @var $theme \suhanda\AdminLte\Theme */
 $theme = $this->theme;
 
 AdminLteAssets::register($this);

@@ -1,14 +1,14 @@
 <?php
-namespace yii\lte\widgets;
+namespace suhanda\AdminLte\widgets;
 
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
-use yii\lte\helpers\Html;
+use suhanda\AdminLte\helpers\Html;
 
 /**
  * Class NavBar
  *
- * @package yii\lte\widgets
+ * @package suhanda\AdminLte\widgets
  * @author  Dedi Suhanda <dedi.suhanda@gmail.com>
  */
 class NavBar extends Widget

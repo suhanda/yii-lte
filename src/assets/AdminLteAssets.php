@@ -1,5 +1,5 @@
 <?php
-namespace yii\lte\assets;
+namespace suhanda\AdminLte\assets;
 
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
@@ -8,7 +8,7 @@ use yii\web\YiiAsset;
 /**
  * Class AdminLteAssets
  *
- * @package yii\lte\assets
+ * @package suhanda\AdminLte\assets
  * @author  Dedi Suhanda <dedi.suhanda@gmail.com>
  */
 class AdminLteAssets extends AssetBundle

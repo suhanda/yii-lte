@@ -1,14 +1,14 @@
 <?php
-namespace yii\lte\widgets;
+namespace suhanda\AdminLte\widgets;
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\lte\helpers\Html;
+use suhanda\AdminLte\helpers\Html;
 use yii\widgets\Menu;
 
 /**
  * Class NavBarMenu
- * @package yii\lte\widgets
+ * @package suhanda\AdminLte\widgets
  */
 class NavBarMenu extends Menu
 {

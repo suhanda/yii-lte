@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Url;
-use yii\lte\widgets\NavBar;
-use yii\lte\widgets\NavBarMenu;
+use suhanda\AdminLte\widgets\NavBar;
+use suhanda\AdminLte\widgets\NavBarMenu;
 
 ?>
 <header class="main-header">

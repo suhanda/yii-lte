@@ -1,5 +1,5 @@
 <?php
-namespace yii\lte\assets;
+namespace suhanda\AdminLte\assets;
 
 use yii\bootstrap\BootstrapAsset;
 use yii\web\YiiAsset;
@@ -7,7 +7,7 @@ use yii\web\YiiAsset;
 /**
  * Class FontAwesomeAssets
  *
- * @package yii\lte\assets
+ * @package suhanda\AdminLte\assets
  * @author  Dedi Suhanda <dedi.suhanda@gmail.com>
  */
 class FontAwesomeAssets extends AssetBundle

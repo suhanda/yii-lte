@@ -1,5 +1,5 @@
 <?php
-namespace yii\lte\widgets;
+namespace suhanda\AdminLte\widgets;
 
 
 use Yii;
@@ -42,7 +42,7 @@ use yii\widgets\Menu;
  * ]);
  * ```
  *
- * @package yii\lte\widgets
+ * @package suhanda\AdminLte\widgets
  * @author  Dedi Suhanda <dedi.suhanda@gmail.com>
  */
 class SideBarMenu extends Menu

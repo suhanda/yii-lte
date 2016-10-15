@@ -1,5 +1,5 @@
 <?php
-use yii\lte\widgets\SideBarMenu;
+use suhanda\AdminLte\widgets\SideBarMenu;
 
 ?>
 <!-- Left side column. contains the sidebar -->
