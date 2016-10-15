@@ -8,7 +8,6 @@ use yii\web\AssetBundle as YiiAssetBundle;
  * Adding some method for better usage
  *
  * @author    Dedi Suhanda <dedi.suhanda@gmail.com>
- * @since     1.0
  */
 class AssetBundle extends YiiAssetBundle
 {

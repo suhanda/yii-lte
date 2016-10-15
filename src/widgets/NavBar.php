@@ -3,7 +3,7 @@ namespace yii\lte\widgets;
 
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
+use yii\lte\helpers\Html;
 
 /**
  * Class NavBar

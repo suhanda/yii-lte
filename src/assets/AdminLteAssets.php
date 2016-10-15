@@ -13,6 +13,13 @@ use yii\web\YiiAsset;
  */
 class AdminLteAssets extends AssetBundle
 {
+    /**
+     *
+     * @var string
+     */
+    public static $skin   = 'skin-black';
+    public static $layout = 'layout-boxed';
+
     public function init()
     {
         $this->setSourcePath('@vendor/almasaeed2010/adminlte/dist');
@@ -24,6 +31,7 @@ class AdminLteAssets extends AssetBundle
             'js/app'
         ]);
         $this->addDependency(YiiAsset::class);
+        $this->addDependency(FontAwesomeAssets::class);
         $this->addDependency(BootstrapAsset::class);
         $this->addDependency(BootstrapPluginAsset::class);
 

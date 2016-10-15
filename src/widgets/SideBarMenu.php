@@ -92,7 +92,7 @@ class SideBarMenu extends Menu
      */
     protected function renderItems($items)
     {
-        $n     = count($items);
+
         $lines = [];
         foreach ($items as $i => $item) {
             $tag = ArrayHelper::remove($options, 'tag', 'li');
@@ -104,20 +104,7 @@ class SideBarMenu extends Menu
             $options  = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
             $hasChild = !empty($item['items']);
 
-            $class = [];
 
-            if ($hasChild) {
-                $class[] = 'treeview';
-            }
-            if ($item['active']) {
-                $class[] = $this->activeCssClass;
-            }
-            if ($i === 0 && $this->firstItemCssClass !== null) {
-                $class[] = $this->firstItemCssClass;
-            }
-            if ($i === $n - 1 && $this->lastItemCssClass !== null) {
-                $class[] = $this->lastItemCssClass;
-            }
             if (!empty($class)) {
                 if (empty($options['class'])) {
                     $options['class'] = implode(' ', $class);
@@ -138,6 +125,35 @@ class SideBarMenu extends Menu
         return implode("\n", $lines);
     }
 
+
+    protected function generateItemClass($items, $index)
+    {
+        $last = count($items) - 1;
+        $item = $items[$index];
+
+        $hasChild = !empty($item['items']);
+        $class    = [];
+
+        if ($hasChild) {
+            $class[] = 'treeview';
+        }
+        if ($item['active']) {
+            $class[] = $this->activeCssClass;
+        }
+        if ($index === 0 && $this->firstItemCssClass !== null) {
+            $class[] = $this->firstItemCssClass;
+        }
+        if ($index === $last && $this->lastItemCssClass !== null) {
+            $class[] = $this->lastItemCssClass;
+        }
+
+        if (isset($item['url'])) {
+            $class[] = 'header';
+        }
+
+        return $class;
+    }
+
     /**
      * Renders the content of a menu item.
      * Note that the container and the sub-menus are not rendered here.
@@ -155,6 +171,7 @@ class SideBarMenu extends Menu
         if (!isset($item['url'])) {
             $item['url'] = "#";
         }
+
         $template = ArrayHelper::getValue($item, 'template', $this->linkTemplate);
 
         return strtr($template, [
@@ -196,7 +213,7 @@ class SideBarMenu extends Menu
     /**
      * Normalizes the [[items]] property to remove invisible items and activate certain items.
      *
-     * @param array   $items  the items to be normalized.
+     * @param array $items the items to be normalized.
      * @param boolean $active whether there is an active child menu item.
      *
      * @return array the normalized menu items
@@ -207,20 +224,19 @@ class SideBarMenu extends Menu
             if (is_string($item)) {
                 $items[$i] = ['label' => $item, 'isHeader' => true];
                 continue;
-            } else {
-                $items[$i]['isHeader'] = false;
             }
 
             if (isset($item['visible']) && !$item['visible']) {
                 unset($items[$i]);
                 continue;
             }
-            if (!isset($item['label'])) {
-                $item['label'] = '';
-            }
-            $encodeLabel        = isset($item['encode']) ? $item['encode'] : $this->encodeLabels;
-            $items[$i]['label'] = $encodeLabel ? Html::encode($item['label']) : $item['label'];
-            $hasActiveChild     = false;
+
+            $items[$i]['isHeader'] = ArrayHelper::getValue($item, 'isHeader', false);
+            $label                 = ArrayHelper::getValue($item, 'label', '');
+            $encodeLabel           = ArrayHelper::getValue($item, 'encode', $this->encodeLabels);
+            $items[$i]['label']    = $encodeLabel ? Html::encode($label) : $label;
+            $hasActiveChild        = false;
+
             if (isset($item['items'])) {
                 $items[$i]['items'] = $this->normalizeItems($item['items'], $hasActiveChild);
                 if (empty($items[$i]['items']) && $this->hideEmptyItems) {

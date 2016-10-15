@@ -1,31 +1,40 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dedi.suhanda
- * Date: 10/7/16
- * Time: 11:46 PM
- */
-
 namespace yii\lte\widgets;
-
 
 use Yii;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Html;
-use yii\helpers\Url;
+use yii\lte\helpers\Html;
 use yii\widgets\Menu;
 
+/**
+ * Class NavBarMenu
+ * @package yii\lte\widgets
+ */
 class NavBarMenu extends Menu
 {
-
+    /**
+     * @var string
+     */
     public $submenuTemplate = "\n<ul class=\"dropdown-menu\">\n{items}\n</ul>\n";
 
+    /**
+     * @var string
+     */
     public $linkTemplate = '<a href="{url}">{label}</a>';
 
+    /**
+     * @var bool
+     */
     public $encodeLabels = false;
 
+    /**
+     * @var string
+     */
     public $labelTemplate = '{icon} <span class="{class}">{label}</span>';
 
+    /**
+     * @var string
+     */
     public $iconTemplate = '<i class="fa fa-{icon}"></i>';
 
 
@@ -175,7 +184,7 @@ class NavBarMenu extends Menu
     /**
      * Normalizes the [[items]] property to remove invisible items and activate certain items.
      *
-     * @param array   $items  the items to be normalized.
+     * @param array $items the items to be normalized.
      * @param boolean $active whether there is an active child menu item.
      *
      * @return array the normalized menu items
@@ -191,12 +200,11 @@ class NavBarMenu extends Menu
             $items[$i]['isFooter']    = ArrayHelper::getValue($item, 'isFooter', false);
             $items[$i]['isInnerMenu'] = ArrayHelper::getValue($item, 'isInnerMenu', false);
 
-            if (!isset($item['label'])) {
-                $item['label'] = '';
-            }
+            $label              = ArrayHelper::getValue($item, 'label', '');
             $encodeLabel        = isset($item['encode']) ? $item['encode'] : $this->encodeLabels;
-            $items[$i]['label'] = $encodeLabel ? Html::encode($item['label']) : $item['label'];
+            $items[$i]['label'] = $encodeLabel ? Html::encode($label) : $label;
             $hasActiveChild     = false;
+
             if (isset($item['items']) && !$items[$i]['isInnerMenu']) {
                 $items[$i]['items'] = $this->normalizeItems($item['items'], $hasActiveChild);
                 if (empty($items[$i]['items']) && $this->hideEmptyItems) {
