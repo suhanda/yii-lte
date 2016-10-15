@@ -42,9 +42,9 @@ $this->beginPage();
 <!-- Site wrapper -->
 <div class="wrapper">
 
-    <?= $this->render('_header') ?>
+    <?= $this->render('//layouts/_header') ?>
     <!-- =============================================== -->
-    <?= $this->render('_mainSideBar') ?>
+    <?= $this->render('//layouts/_mainSideBar') ?>
     <!-- =============================================== -->
 
     <!-- Content Wrapper. Contains page content -->
@@ -64,7 +64,7 @@ $this->beginPage();
     </div>
     <!-- /.content-wrapper -->
 
-
+    <?= $this->render('//layouts/_footer'); ?>
 </div>
 <!-- ./wrapper -->
 <?php $this->endBody() ?>
