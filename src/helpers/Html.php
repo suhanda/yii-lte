@@ -2,15 +2,26 @@
 namespace suhanda\AdminLte\helpers;
 
 use yii\bootstrap\Html as BootstrapHtml;
+use yii\helpers\ArrayHelper;
 
 
 /**
- * Created by PhpStorm.
- * User: dedisuhanda
- * Date: 10/16/16
- * Time: 12:22 AM
+ * Class Html
+ * @package suhanda\AdminLte\helpers
  */
 class Html extends BootstrapHtml
 {
+    /**
+     * @param string $name
+     * @param array $options
+     * @return string
+     */
+    public static function icon($name, $options = [])
+    {
+        $tag         = ArrayHelper::remove($options, 'tag', 'i');
+        $classPrefix = ArrayHelper::remove($options, 'prefix', 'fa fa-');
+        static::addCssClass($options, $classPrefix . $name);
 
+        return static::tag($tag, '', $options);
+    }
 }
