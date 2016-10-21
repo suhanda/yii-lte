@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Class Box
+ *
  * @package suhanda\AdminLte\widgets
  */
 class Box extends Widget
@@ -17,6 +18,7 @@ class Box extends Widget
     const TYPE_WARNING = 'warning';
     const TYPE_DANGER  = 'danger';
 
+    /** @var string */
     public $type = self::TYPE_DEFAULT;
 
     /** @var bool */
@@ -28,18 +30,30 @@ class Box extends Widget
     /** @var array | string */
     public $tools = [];
 
+    /** @var  string */
     public $title;
 
+    /** @var array */
     public $headerOptions = [];
 
+    /** @var array */
     public $bodyOptions = [];
 
+    /** @var array */
     public $footerOptions = [];
+
+    /** @var string */
+    public $collapseButton = "<button class=\"btn btn-box-tool\" data-widget=\"collapse\" data-toggle=\"tooltip\" title=\"Collapse\"><i class=\"fa fa-minus\"></i></button>";
+
+    /** @var string */
+    public $removeButton = "<button class=\"btn btn-box-tool\" data-widget=\"remove\" data-toggle=\"tooltip\" title=\"Remove\"><i class=\"fa fa-times\"></i></button>";
 
     /** @var  string */
     protected $footerTag;
+
     /** @var  string */
     protected $tag;
+
     /** @var  string */
     protected $bodyTag;
 
@@ -142,9 +156,9 @@ class Box extends Widget
             if (is_string($tool)) {
                 switch ($tool) {
                     case 'collapse':
-                        return "<button class=\"btn btn-box-tool\" data-widget=\"collapse\" data-toggle=\"tooltip\" title=\"Collapse\"><i class=\"fa fa-minus\"></i></button>";
+                        return $this->collapseButton;
                     case 'remove' :
-                        return "<button class=\"btn btn-box-tool\" data-widget=\"remove\" data-toggle=\"tooltip\" title=\"Remove\"><i class=\"fa fa-times\"></i></button>";
+                        return $this->removeButton;
                     default:
                         return $tool;
                 }

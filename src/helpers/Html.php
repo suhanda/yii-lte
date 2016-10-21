@@ -7,13 +7,14 @@ use yii\helpers\ArrayHelper;
 
 /**
  * Class Html
+ *
  * @package suhanda\AdminLte\helpers
  */
 class Html extends BootstrapHtml
 {
     /**
      * @param string $name
-     * @param array $options
+     * @param array  $options
      * @return string
      */
     public static function icon($name, $options = [])

@@ -1,11 +1,15 @@
 <?php
 namespace suhanda\AdminLte\widgets;
 
-
 use suhanda\AdminLte\helpers\Html;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
 
+/**
+ * Class Alert
+ *
+ * @package suhanda\AdminLte\widgets
+ */
 class Alert extends Widget
 {
     const TYPE_INFO    = 'info';
@@ -21,7 +25,7 @@ class Alert extends Widget
 
     /** @var  string */
     public $message;
-    
+
     /** @var bool */
     public $dismissible = true;
 
