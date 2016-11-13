@@ -104,6 +104,7 @@ class SideBarMenu extends Menu
             $options  = array_merge($this->itemOptions, ArrayHelper::getValue($item, 'options', []));
             $hasChild = !empty($item['items']);
 
+            $class = $this->generateItemClass($items, $i);
 
             if (!empty($class)) {
                 if (empty($options['class'])) {
@@ -213,7 +214,7 @@ class SideBarMenu extends Menu
     /**
      * Normalizes the [[items]] property to remove invisible items and activate certain items.
      *
-     * @param array $items the items to be normalized.
+     * @param array   $items  the items to be normalized.
      * @param boolean $active whether there is an active child menu item.
      *
      * @return array the normalized menu items
