@@ -148,10 +148,6 @@ class SideBarMenu extends Menu
             $class[] = $this->lastItemCssClass;
         }
 
-        if (isset($item['url'])) {
-            $class[] = 'header';
-        }
-
         return $class;
     }
 
@@ -187,13 +183,10 @@ class SideBarMenu extends Menu
         $hasChild      = !empty($item['items']);
         $labelTemplate = ArrayHelper::getValue($item, 'labelTemplate', $this->labelTemplate);
         $iconTemplate  = ArrayHelper::getValue($item, 'iconTemplate', $this->iconTemplate);
-        $icon          = '';
 
-        if (isset($item['icon'])) {
-            $icon = strtr($iconTemplate, [
-                '{icon}' => $item['icon']
-            ]);
-        }
+        $icon = strtr($iconTemplate, [
+            '{icon}' => ArrayHelper::getValue($item, 'icon', 'circle-o')
+        ]);
 
         if (isset($item['badges'])) {
             $side = $this->renderBadges($item);

@@ -11,7 +11,7 @@ class ChartJsAssets extends AssetBundle
 {
     public function init()
     {
-        $this->setSourcePath('@vendor/bower-assets/chart.js/dist');
+        $this->setSourcePath('@vendor/bower/chart.js/dist');
         $this->setupAssets('js', [
             "Chart",
         ]);
