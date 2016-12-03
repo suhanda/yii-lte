@@ -48,18 +48,48 @@ use yii\widgets\Menu;
 class SideBarMenu extends Menu
 {
 
+    /**
+     * @var string
+     *
+     * Signed for item has sub menu.
+     */
     public $hasChildTemplate = '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>';
 
+    /**
+     * @var string the template used to render a list of sub-menus.
+     * In this template, the token `{items}` will be replaced with the rendered sub-menu items.
+     */
     public $submenuTemplate = "\n<ul class=\"treeview-menu\">\n{items}\n</ul>\n";
 
+    /**
+     * @var string the template used to render the body of a menu which is a link.
+     * In this template, the token `{url}` will be replaced with the corresponding link URL;
+     * while `{label}` will be replaced with the link text.
+     * This property will be overridden by the `template` option set in individual menu items via [[items]].
+     */
     public $linkTemplate = '<a href="{url}">{label}</a>';
 
+    /**
+     * @var boolean allow label for HTML
+     */
     public $encodeLabels = false;
 
+    /**
+     * @var boolean whether to activate parent menu items when one of the corresponding child menu items is active.
+     * The activated parent menu items will also have its CSS classes appended with [[activeCssClass]].
+     */
     public $activateParents = true;
 
+    /**
+     * @var string the template used to render the body of a menu which is NOT a link.
+     * In this template, the token `{label}` will be replaced with the label of the menu item.
+     * This property will be overridden by the `template` option set in individual menu items via [[items]].
+     */
     public $labelTemplate = '{icon}<span>{label}</span>{hasChild}';
 
+    /**
+     * @var string you can change this template to use another icon framework
+     */
     public $iconTemplate = '<i class="fa fa-{icon}"></i>';
 
     /**
@@ -178,6 +208,12 @@ class SideBarMenu extends Menu
 
     }
 
+    /**
+     * Render lable with icon and signed for sub menu
+     *
+     * @param $item
+     * @return string
+     */
     public function renderLabel($item)
     {
         $hasChild      = !empty($item['items']);
