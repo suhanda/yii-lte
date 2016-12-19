@@ -4,6 +4,7 @@ namespace suhanda\AdminLte\widgets;
 use suhanda\AdminLte\assets\ChartJsAssets;
 use suhanda\AdminLte\helpers\Html;
 use yii\base\Widget;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
 /**
@@ -13,20 +14,23 @@ use yii\helpers\Json;
  */
 class ChartJs extends Widget
 {
-    public $type    = '';
-    public $data    = [];
-    public $options = [];
+    public $type        = '';
+    public $data        = [];
+    public $options     = [];
+    public $htmlOptions = [];
 
     public $width  = 400;
     public $height = 400;
 
     public function init()
     {
-        echo Html::tag('canvas', '', [
+        $htmlOptions = ArrayHelper::merge([
             'id'     => $this->getId(),
             'width'  => $this->width,
             'height' => $this->height
-        ]);
+        ], $this->htmlOptions);
+
+        echo Html::tag('canvas', '', $htmlOptions);
 
         $this->registerScripts();
     }
@@ -41,7 +45,13 @@ class ChartJs extends Widget
             'data'    => $this->data,
             'options' => $this->options,
         ];
-        $view->registerJs(sprintf("var %s = document.getElementById('%s')"), $id, $id);
-        $view->registerJs(sprintf("var %sChart = new Char(%s,%s);"), $id, $id, Json::encode($options));
+        $view->registerJs(
+            sprintf(
+                "var %sChart = new Char(document.getElementById('%s'),%s);",
+                $id,
+                $id,
+                Json::encode($options)
+            )
+        );
     }
 }

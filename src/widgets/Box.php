@@ -68,7 +68,7 @@ class Box extends Widget
         $html          = [];
         $html[]        = Html::beginTag($this->tag, $this->options);
         $html[]        = $this->renderHeader();
-        $this->bodyTag = ArrayHelper::remove($this->bodyOptions, 'tag', 'dev');
+        $this->bodyTag = ArrayHelper::remove($this->bodyOptions, 'tag', 'div');
         Html::addCssClass($this->bodyOptions, ['box-body']);
         $html[] = Html::beginTag($this->bodyTag, $this->bodyOptions);
 

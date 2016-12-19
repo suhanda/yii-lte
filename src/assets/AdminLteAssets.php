@@ -17,7 +17,7 @@ class AdminLteAssets extends AssetBundle
      *
      * @var string
      */
-    public static $skin   = 'skin-black';
+    public static $skin = 'skin-black';
 
     public static $layout = 'layout-boxed';
 
