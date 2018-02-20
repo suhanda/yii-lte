@@ -106,7 +106,8 @@ class SideBarMenu extends Menu
         $items = $this->normalizeItems($this->items, $hasActiveChild);
         if (!empty($items)) {
             $options = $this->options;
-            Html::addCssClass($options, 'sidebar-menu');
+            Html::addCssClass($options, 'sidebar-menu tree');
+            $options["data-widget"] = "tree";
 
             $tag = ArrayHelper::remove($options, 'tag', 'ul');
             echo Html::tag($tag, $this->renderItems($items), $options);

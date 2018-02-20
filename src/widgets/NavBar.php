@@ -59,7 +59,7 @@ class NavBar extends Widget
     {
         $toggleOptions = [
             'class'       => $this->toggleCss,
-            'data-toggle' => 'offcanvas',
+            'data-toggle' => 'push-menu',
             'role'        => 'button',
             'href'        => '#'
         ];
